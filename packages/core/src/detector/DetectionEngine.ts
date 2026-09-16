@@ -17,7 +17,7 @@ import type {
   PIIMatch,
   PIIPattern,
 } from "../types";
-import { RegexTimeoutError, safeExec } from "../utils/safe-regex.js";
+import { safeExec } from "../utils/safe-regex.js";
 import type { CacheManager } from "./CacheManager";
 import { PatternManager } from "./PatternManager";
 import type { PlaceholderGenerator } from "./PlaceholderGenerator";
@@ -399,12 +399,6 @@ export class DetectionEngine {
           processedRanges.push([startPos, endPos]);
         }
       } catch (error) {
-        if (error instanceof RegexTimeoutError) {
-          if (this.options.debug) {
-            console.warn(`[OpenRedaction] ${error.message}`);
-          }
-          continue;
-        }
         throw error;
       }
     }
